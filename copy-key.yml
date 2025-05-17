@@ -1,0 +1,17 @@
+# copy_key.yml
+# this script used to execute from master to add ssh key for each worker node before executing futher playbooks run this
+- hosts: workers
+  become: true
+  vars:
+    ansible_ssh_pass: your_password_here
+  tasks:
+    - name: Ensure .ssh directory exists
+      file:
+        path: /root/.ssh
+        state: directory
+        mode: '0700'
+
+    - name: Add public key to authorized_keys
+      authorized_key:
+        user: root
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
