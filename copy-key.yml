@@ -1,5 +1,7 @@
 # copy_key.yml
 # this script used to execute from master to add ssh key for each worker node before executing futher playbooks run this
+# ansible-playbook -i inventory.ini copy_key.yml --ask-pass
+# specify the worjers in inventory.ini with [workers]
 - hosts: workers
   become: true
   vars:
